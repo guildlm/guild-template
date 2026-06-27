@@ -1,0 +1,21 @@
+# Build artifacts from the core tools, if run in-tree.
+/data/
+data/raw/
+datasets/
+checkpoints/
+reports/
+*.safetensors
+*.gguf
+
+# Python / tooling caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store

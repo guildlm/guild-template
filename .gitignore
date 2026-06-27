@@ -1,0 +1,16 @@
+# Guilds scaffolded locally by new_guild.sh land in ./guild-* — don't commit them
+# from inside the template repo.
+/guild-*/
+
+# Python / tooling caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store

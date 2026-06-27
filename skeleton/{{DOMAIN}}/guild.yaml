@@ -1,0 +1,40 @@
+# {{GUILD_NAME}} — {{DOMAIN}} specialists manifest.
+#
+# Source-of-truth description of this guild's specialists. Keep every specialist
+# id, base model and prompt intent aligned with the brain registry
+# (brain/configs/guilds.yaml): register the same `brain_id` there to serve it.
+#
+# Pipeline per specialist:
+#   forge recipe   -> {{DOMAIN}}/forge/<id>.yaml
+#   anvil recipe   -> {{DOMAIN}}/anvil/<id>.yaml
+#   crucible suite -> {{DOMAIN}}/crucible/<id>.yaml
+#   prompt         -> {{DOMAIN}}/prompts/<id>.txt
+
+guild:
+  id: "{{DOMAIN}}"
+  name: "{{GUILD_NAME}}"
+  domain: "{{DOMAIN}}"
+  status: draft
+  description: >-
+    TODO: one-paragraph description of the {{GUILD_NAME}} and what its
+    specialists master.
+  # Keywords the brain can use to route to this guild.
+  routing_keywords: ["{{DOMAIN}}", "TODO", "TODO"]
+
+defaults:
+  base_model: qwen2.5:7b-instruct        # inference tag (Ollama / vLLM)
+  base_model_recipe: qwen2.5_7b          # anvil base_models/ reference
+  lora: default                          # anvil lora/ reference
+
+specialists:
+  - id: "{{SPECIALIST}}"
+    brain_id: "{{GUILD_NAME}}/{{SPECIALIST}}"
+    tasks: [TODO]
+    lora_recipe: default
+    lora_adapter: "guildlm/{{SPECIALIST}}-lora"
+    prompt: "{{DOMAIN}}/prompts/{{SPECIALIST}}.txt"
+    forge: "{{DOMAIN}}/forge/{{SPECIALIST}}.yaml"
+    anvil: "{{DOMAIN}}/anvil/{{SPECIALIST}}.yaml"
+    crucible: "{{DOMAIN}}/crucible/{{SPECIALIST}}.yaml"
+    brief: TODO one-line description of this specialist.
+  # Add more specialists here (copy the block above).

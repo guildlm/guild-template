@@ -1,0 +1,1 @@
+{"id": "example-1", "prompt": "TODO: an example {{DOMAIN}} task for {{SPECIALIST}}.", "reference": "TODO: the ideal answer.", "prediction": "TODO: the model output to score (replace at eval time).", "metadata": {}}

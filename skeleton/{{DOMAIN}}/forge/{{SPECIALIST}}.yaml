@@ -1,0 +1,47 @@
+# Forge data recipe — {{GUILD_NAME}} · {{SPECIALIST}}
+#
+# Builds the SFT dataset for the {{SPECIALIST}} specialist. Matches the Forge
+# pipeline schema (see forge/configs/example.yaml).
+#
+# Run from a forge/ checkout:
+#   forge run --config ../{{GUILD_NAME}}/{{DOMAIN}}/forge/{{SPECIALIST}}.yaml
+#
+# `generate.offline: true` produces deterministic synthetic pairs so the recipe
+# runs with no GPU/teacher. For real data, set offline:false and export
+# FORGE_TEACHER_BASE_URL / FORGE_TEACHER_API_KEY / FORGE_TEACHER_MODEL.
+
+# Discovery source (forge SOURCE_REGISTRY: github, arxiv).
+source: github
+
+# TODO: tune the source query for your domain.
+query: "TODO replace with a query for {{DOMAIN}}"
+
+# Number of items to discover. Raise for a production-size corpus.
+max_results: 40
+
+download:
+  output_dir: "data/raw/{{SPECIALIST}}"
+  max_workers: 4
+
+process:
+  # TODO: set the file types / lengths that matter for {{DOMAIN}}.
+  include_extensions: [".txt"]
+  min_length: 200
+  max_length: 50000
+  near_dup_threshold: 0.85
+  allow_unknown_license: false
+
+generate:
+  offline: true
+  roles:
+    # The role must be registered in forge ROLE_REGISTRY
+    # (forge/src/core/instruction_gen.py). Add a Role("{{SPECIALIST}}", ...) there.
+    - "{{SPECIALIST}}"
+  max_pairs_per_doc: 2
+
+build:
+  name: "{{SPECIALIST}}_v1"
+  output_dir: data/datasets
+  val_ratio: 0.05
+  seed: 42
+  formats: ["jsonl"]

@@ -1,0 +1,29 @@
+# Anvil training recipe — {{GUILD_NAME}} · {{SPECIALIST}} (QLoRA SFT)
+#
+# Trains the {{SPECIALIST}} adapter on the Forge dataset built by
+# {{DOMAIN}}/forge/{{SPECIALIST}}.yaml. Named references resolve against the Anvil
+# configs/ root:
+#   base_model: qwen2.5_7b -> anvil/configs/base_models/qwen2.5_7b.yaml
+#   lora:       default    -> anvil/configs/lora/default.yaml   (use high_rank for
+#                                                                hard reasoning tasks)
+#
+# Copy this file into anvil/configs/guilds/ so the names resolve, then run:
+#   anvil-train --config configs/guilds/{{SPECIALIST}}.yaml
+name: "{{SPECIALIST}}"
+
+base_model: qwen2.5_7b
+lora: default
+
+dataset:
+  path: "../../forge/data/datasets/{{SPECIALIST}}_v1.train.jsonl"
+  eval_path: "../../forge/data/datasets/{{SPECIALIST}}_v1.validation.jsonl"
+  system_prompt: "TODO one-line system prompt for the {{SPECIALIST}} specialist."
+
+output_dir: "./checkpoints/{{SPECIALIST}}_adapter"
+
+sft:
+  batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 2.0e-4
+  epochs: 3
+  group_by_length: true

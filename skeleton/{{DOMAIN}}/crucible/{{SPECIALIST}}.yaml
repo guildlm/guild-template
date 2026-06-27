@@ -1,0 +1,16 @@
+name: "{{SPECIALIST}}"
+description: >
+  Evaluation suite for the {{SPECIALIST}} specialist of {{GUILD_NAME}}.
+  Choose evaluators that fit the output: `go_functional` (or another executable
+  evaluator) for code that must build/run; `llm_judge` + `safety` for prose.
+  See crucible/src/evaluators/ for the registered evaluators and their config.
+evaluators:
+  - llm_judge
+  - safety
+dataset: "data/{{SPECIALIST}}.jsonl"
+config:
+  llm_judge:
+    offline: true
+    threshold: 0.6
+  safety:
+    use_defaults: true
